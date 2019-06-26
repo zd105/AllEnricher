@@ -107,7 +107,7 @@ Create a directory where you plan the package to reside. Copy the downloaded arc
  
 
 ```shell
-unzip AllEnricher-master.zip
+tar zxvf AllEnricher-xxx.zip
 ```
 
  
@@ -191,19 +191,21 @@ This will download the up to date `gene_info` file from NCBI and
 
 > 480 M	gene_info.gz
 
-> 67M	NCBI2Reactome_All_Levels.txt
+> 7.3 M	NCBI2Reactome_All_Levels.txt.gz
 
 So, This will take some time to finish the update depending on your network.
 The new build database will be named in \"Reactome+current date\" at this path: `./database/basic/reactome/`
 
-##### 3.1.3 Build GO/KEGG/Reactome/DO/DisGeNET database for specified species 
+##### 3.1.3 Build local GO/KEGG/Reactome/DO/DisGeNET database for specified species 
 
 In this step, 
-GO database and Reactome database for specified species are build on the established databse in step 3.1.1 and 3.1.2 ;
+Local GO database and Reactome database for specified species are build on the established databse in step 3.1.1 and 3.1.2 ;
 
-Disease Ontology (DO) database for `human` is build based on DISEASES database (https://diseases.jensenlab.org/) ;
+Local KEGG database for specified species are build from the web server of KEGG;
 
-KEGG database for specified species are build from the web server of KEGG.
+Local Disease Ontology (DO) database for `human` is build based on DISEASES database (https://diseases.jensenlab.org/) ;
+
+Local DisGeNET library for `human` is build based on DisGeNET database (http://disgenet.org/home/).
 
 For example, to build the GO/KEGG/DO/Reactome database for human,  just type:
 
@@ -248,14 +250,14 @@ Once all the database for a specified species had build, the users could conduct
 Take the gene set in the `./example` file as example, just type:
 
 ```shell
-./AllEnricher -l example.glist -s hsa -v v20190612 -o ./allenricher/ -r /usr/bin/Rscript -n GO+KEGG+DO+Reactome
+./AllEnricher -l example.glist -s hsa -v v20190612 -o ./allenricher/ -r /usr/bin/Rscript -n GO+KEGG+Reactome+DO+DisGeNET
 
 ```
 
-Note to select appropriate kind of analyses from GO, KEGG, DO and Reactome according to your interests and under the  support of AllEnricher database.
+Note to select appropriate kind of analyses from GO, KEGG, Reactome, DO and DisGeNET according to your interests and under the  support of AllEnricher database.
 
-The general workflow of AllEnricher is summarized as follows:
-![image](https://github.com/zd105/AllEnricher/blob/master/AllEnricher_workflow.jpg)
+The user guide is summarized as follows:
+![image](https://github.com/zd105/AllEnricher/blob/master/AllEnricher_Usage.jpg)
 
 # 4.Output files
 
