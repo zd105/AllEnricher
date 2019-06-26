@@ -31,7 +31,7 @@ The same gene set provided by users could be interpreted from multiple aspects a
 - Disease ontology (for human)
 - DisGeNET disease (for human)
 
-Besides, gene-function annotations based on various kind of database will be integrated as local library of AllEnricher to satisfy researches in different filed in the future, based on current program framework.
+Besides, gene-function annotations based on various kind of library will be integrated as local library of AllEnricher to satisfy researches in different filed in the future, based on current program framework.
 
 **B. Multiple species support**
 
@@ -81,7 +81,7 @@ The local library was built based on public resources that are frequently update
 
 **D. Easy to use and embeddable**
 
-No installation required. Once you finished database construction, only one command is required for gene set enrichment analysis and visualization. Since most bioinformatic pipelines of function genomic studies are deployed on the Unix platform, it is convenient for users to integrating AllEnricher into their pipelines to facilitating analysis.
+No installation required. Once you finished library construction, only one command is required for gene set enrichment analysis and visualization. Since most bioinformatic pipelines of function genomic studies are deployed on the Unix platform, it is convenient for users to integrating AllEnricher into their pipelines to facilitating analysis.
 
 # 1.System Requirements
 
@@ -148,17 +148,17 @@ If this is not the valid path for your perl/shell/R installation, you need to ch
 
 # 3.Usage
 
-#### 3.1 Database construction
+#### 3.1 Local gene set library construction
 
-Before the users could use the tool, the database need to be updated.
+Before the users could use the tool, the library need to be updated.
 
-Otherwise, it will use the default old database instead, which was build 
+Otherwise, it will use the default old library instead, which was build 
 
 on 6-12-2019 by the author.
 
-##### 3.1.1 Update the Gene Ontology (GO) database for AllEnricher
+##### 3.1.1 Update the Gene Ontology (GO) library for AllEnricher
 
-To update GO database for AllEnricher, just type:
+To update GO library for AllEnricher, just type:
 
 ```shell
 ./make_speciesDB
@@ -175,12 +175,12 @@ This will download the up to date `gene2go`and `gene_info`file from NCBI, `obo` 
 > 31 M	go-basic.obo
 
 So, This will take some time to finish the update depending on your network.
-The updated database will be named as \"GO+current date\"
+The updated library will be named as \"GO+current date\"
 at this path: `./database/basic/go/`
 
-##### 3.1.2 Update the Reactome database for AllEnricher
+##### 3.1.2 Update the Reactome library for AllEnricher
 
-To update Reactome database for AllEnricher, just type:
+To update Reactome library for AllEnricher, just type:
 
 ```shell
 ./make_ReactomeDB
@@ -194,28 +194,28 @@ This will download the up to date `gene_info` file from NCBI and
 > 7.3 M	NCBI2Reactome_All_Levels.txt.gz
 
 So, This will take some time to finish the update depending on your network.
-The new build database will be named in \"Reactome+current date\" at this path: `./database/basic/reactome/`
+The new build library will be named in \"Reactome+current date\" at this path: `./database/basic/reactome/`
 
-##### 3.1.3 Build local GO/KEGG/Reactome/DO/DisGeNET database for specified species 
+##### 3.1.3 Build local GO/KEGG/Reactome/DO/DisGeNET library for specified species 
 
 In this step, 
-Local GO database and Reactome database for specified species are build on the established databse in step 3.1.1 and 3.1.2 ;
+Local GO library and Reactome library for specified species are build on the established databse in step 3.1.1 and 3.1.2 ;
 
-Local KEGG database for specified species are build from the web server of KEGG;
+Local KEGG library for specified species are build from the web server of KEGG;
 
-Local Disease Ontology (DO) database for `human` is build based on DISEASES database (https://diseases.jensenlab.org/) ;
+Local Disease Ontology (DO) library for `human` is build based on DISEASES database (https://diseases.jensenlab.org/) ;
 
 Local DisGeNET library for `human` is build based on DisGeNET database (http://disgenet.org/home/).
 
-For example, to build the GO/KEGG/DO/Reactome database for human,  just type:
+For example, to build the GO/KEGG/DO/Reactome library for human,  just type:
 
 ```shell
 ./make_speciesDB -s hsa -i 9606 -R /usr/bin/Rscript
 ```
 
-The program will use the most recent GO and Reactome database version in these path as default. 
+The program will use the most recent GO and Reactome library version in these path as default. 
 
-or, you can specify the GO and Reactome database you had build in
+or, you can specify the GO and Reactome library you had build in
 
  `./database/basic/go/` and  `./database/basic/reactome/` 
 
@@ -228,13 +228,13 @@ by type:
 
 This will take some time to finish the update depending on your network.
 
-The new build database will be named in \"v+current date\" at this path:
+The new build library will be named in \"v+current date\" at this path:
 
 `./database/organism/v20190612/hsa/`
 
-The program had build the database for several species in the default version of database.
+The program had build the library for several species in the default version of library.
 
-The species abbrev and the taxonomy ID of these established database are listed in this table:
+The species abbrev and the taxonomy ID of these established library are listed in this table:
 
 |    Species name     | Species abbrev | Taxonomy ID |
 | :-----------------: | :------------: | :---------: |
@@ -245,7 +245,7 @@ The species abbrev and the taxonomy ID of these established database are listed 
 
 #### 3.2 Run enrichment analyses and visualization
 
-Once all the database for a specified species had build, the users could conduct the gene set enrichment analyses in just one single command.
+Once all the library for a specified species had build, the users could conduct the gene set enrichment analyses in just one single command.
 
 Take the gene set in the `./example` file as example, just type:
 
@@ -254,17 +254,16 @@ Take the gene set in the `./example` file as example, just type:
 
 ```
 
-Note to select appropriate kind of analyses from GO, KEGG, Reactome, DO and DisGeNET according to your interests and under the  support of AllEnricher database.
+Note to select appropriate kind of analyses from GO, KEGG, Reactome, DO and DisGeNET according to your interests and under the  support of AllEnricher library.
 
 The user guide is summarized as follows:
 ![image](https://github.com/zd105/AllEnricher/blob/master/AllEnricher_workflow.jpg)
 
 # 4.Output files
 
-The program creates a few working files during the database establishment and enrichment process and several output files to be further processed by the user (the database
-files).
+The program creates a few working files during the library establishment and enrichment process and several output files to be further processed by the user (the library files).
 
-#### 4.1 Database files
+#### 4.1 Local gene set library files
 
 Assuming the GO and Reactome database is built on June 12, 2019. For the GO database updated by the script  `update_GOdb`,  this will creates the necessary search files for the GO database establishment for specified species in path:  `./database/basic/go/GO20190612/` 
 
