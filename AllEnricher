@@ -1,0 +1,140 @@
+﻿#!/usr/bin/perl
+
+use strict;
+use Getopt::Long;
+use Cwd 'abs_path';
+use FindBin qw($Bin $Script);
+my $usage=<<"USAGE";
+  
+Name:    $0
+            
+          This is a program for gene list function analysis for specified species.
+Version: 1.0
+Usage:   perl $0 -l gene_list -s hsa -r \$WHERE_YOU_R/Rscript -o outfile
+            -l <str>  Input gene symbol list.
+            -s <str>  Specify the species name abbreviation.
+                      for example:
+                         hsa: human(default)
+                         mmu: mouse
+                         ssc: pig
+                      check species kegg abbreviation and taxnomy id in:
+                         "https://www.kegg.jp/kegg/catalog/org_list.html"
+            -n <str>  Analysis items:
+                         KEGG+GO(default)
+                      or: you can specify yourself. optins: KEGG,GO,DO,DisGeNET and Reactome.
+            -m <str>  Specify the enrichment method:
+                         "fisher" for Fisher's exact test(default);
+                         "phyper" for Hypergeometric test.
+            -q <str>  Multiple hypothesis testing method:
+                         BH(default);
+                         FDR;
+            -c <flt>  Q-value cut off; default is 0.05.
+            -v <str>  Version of AllEnricher local database for specified species.
+                      Default is the most recent version you had build.
+                      format: v+year+mouth+day,like: v20190415 
+            -r <str>  Rscript program. "\$WHEREYOUR/Rscript".
+            -o <str>  results file path.
+            -h <str>  show this help.
+USAGE
+
+my $run="$Bin/src/AllEnricher_v1.0.pl";
+my $plot="$Bin/src/plot_enrich_v1.0.pl";
+
+my ($dbversion,$infile,$outdir,$Rscript,$species,$mht,$q_val,$mode,$item);
+my $help;
+GetOptions("l=s"     =>  \$infile,
+           "s=s"     => \$species,
+	   "o=s"     => \$outdir,
+	   "m=s"     => \$mode,
+           "n=s"     => \$item,
+           "q=s"     => \$mht,
+	   "c=f"     => \$q_val,
+	   "v=s"     => \$dbversion,
+	   "r=s"     =>\$Rscript,
+           "h=s"     => \$help
+	);
+
+die $usage if $help;
+die $usage unless $infile;
+die $usage unless $outdir;
+die $usage unless $species;
+die $usage unless $Rscript;
+$mode ||="fisher";
+$mht ||="BH";
+$item ||="all";
+$q_val ||=0.05;
+
+if(!$dbversion){
+    my $allversion=`ls $Bin/database/organism/`;
+    my @b=split(/\n/,$allversion);
+    $dbversion ||=$b[-1];
+}
+
+my @a=split(/\//,$infile);
+my $outdir1="$outdir\/$mode\/Q$q_val";
+system("mkdir -p $outdir1");
+system("cp $infile $outdir");
+my $outp="$outdir1\/$a[-1]";
+
+if($item eq "all"){
+    # GO enrichment
+    print "\e[1;33m================ GO enrichment analysis =======================\n";system("tput sgr0");
+    print "|---GO function analysis begin...\n";
+    print "|---Using AllEnricher database version: \e[1;31m$dbversion\n";system("tput sgr0");
+    system("perl $run -l $infile -s $species -m $mode -o $outp.GO -a $mht -c $q_val -r $Rscript -v $dbversion");
+
+    # KEGG enrichment
+    print "\e[1;33m================ KEGG enrichment analysis ======================\n";system("tput sgr0");
+    print "|---KEGG function analysis begin...\n";
+    system("perl $run -l $infile -t kegg -s $species -m $mode -o $outp.KEGG -a $mht -c $q_val -r $Rscript -v $dbversion");
+
+    # plot
+    print "\e[1;33m================ Barplot and bubble polt =======================\n";system("tput sgr0");
+    system("perl $plot -i $outp.GO.xls -t GO -n 2 -f 1 -q $q_val -o $outp.GO -r $Rscript");
+    system("perl $plot -i $outp.KEGG.xls -t KEGG -n 2 -f 1 -q $q_val -o $outp.KEGG -r $Rscript");
+    print "\e[1;33m============== GO and KEGG enrichment finished =================\n";system("tput sgr0");
+
+}else{
+    my @b=split(/\+/,$item);
+    foreach my $bb(@b){
+        if($bb eq "GO"){
+            # GO enrichment
+            print "\e[1;33m================ GO enrichment analysis =======================\n";system("tput sgr0");
+            print "|---GO function analysis begin...\n";
+            print "|---Using AllEnricher database version: $dbversion\n";
+            system("perl $run -l $infile -s $species -m $mode -o $outp.GO -a $mht -c $q_val -r $Rscript -v $dbversion");
+            # plot
+            print "\e[1;33m================ GO Barplot and bubble polt ===================\n";system("tput sgr0");
+            system("perl $plot -i $outp.GO.xls -t GO -n 2 -f 1 -q $q_val -o $outp.GO -r $Rscript");
+            
+        }
+        if($bb eq "KEGG"){
+            print "\e[1;33m================ KEGG enrichment analysis =====================\n";system("tput sgr0");
+            print "|---KEGG function analysis begin...\n";
+            system("perl $run -L $infile -t kegg -s $species -m $mode -o $outp.KEGG -a $mht -c $q_val -r $Rscript -v $dbversion");
+            print "\e[1;33m================ KEGG Barplot and bubble polt =================\n";system("tput sgr0");
+            system("perl $plot -i $outp.KEGG.xls -t KEGG -n 2 -f 1 -q $q_val -o $outp.KEGG -r $Rscript");
+        }
+        if($bb eq "DO"){
+            print "\e[1;33m================ DO enrichment analysis =====================\n";system("tput sgr0");
+            print "|---DO function analysis begin...\n";
+            system("perl $run -L $infile -t DO -s hsa -m $mode -o $outp.DO -a $mht -c $q_val -r $Rscript -v $dbversion");
+            print "\e[1;33m================ DO Barplot and bubble polt =================\n";system("tput sgr0");
+            system("perl $plot -i $outp.DO.xls -t DO -n 2 -f 1 -q $q_val -o $outp.DO -r $Rscript");
+        }
+        if($bb eq "Reactome"){
+            print "\e[1;33m================ Reactome enrichment analysis =====================\n";system("tput sgr0");
+            print "|---Reactome function analysis begin...\n";
+            system("perl $run -L $infile -t Reactome -s hsa -m $mode -o $outp.Reactome -a $mht -c $q_val -r $Rscript -v $dbversion");
+            print "\e[1;33m================ Reactome Barplot and bubble polt =================\n";system("tput sgr0");
+            system("perl $plot -i $outp.Reactome.xls -t Reactome -n 2 -f 1 -q $q_val -o $outp.Reactome -r $Rscript"); 
+        }
+        if($bb eq "DisGeNET"){
+            print "\e[1;33m================ DisGeNET disease enrichment analysis =====================\n";system("tput sgr0");
+            print "|---DisGeNET disease function analysis begin...\n";
+            system("perl $run -L $infile -t DisGeNET -s hsa -m $mode -o $outp.DisGeNET -a $mht -c $q_val -r $Rscript -v $dbversion");
+            print "\e[1;33m================ DisGeNET disease Barplot and bubble polt =================\n";system("tput sgr0");
+            system("perl $plot -i $outp.DisGeNET.xls -t DisGeNET -n 2 -f 1 -q $q_val -o $outp.DisGeNET -r $Rscript");
+        }
+    }
+}

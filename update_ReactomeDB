@@ -1,0 +1,88 @@
+#!/bin/bash
+
+bin=`cd $(dirname $0);pwd`
+date="`date +%Y%m%d`"
+current_version=`ls $bin/database/basic/reactome/`
+
+usage() 
+{ 
+    echo -e "\e[1;33m
+This is a program for GO database update for AllEnricher.
+It will download the up to date gene2go, obo and goa files. 
+The new build database will be named in \"GO+current date\".
+
+\e[1;31m[Exsits DB version]:
+$current_version
+[To update new DB version]:
+    Reactome$date
+[To update new DB path]:
+    $bin/database/basic/reactome/Reactome$date
+
+\e[1;33m[Usage]: `basename $0`
+    
+    -h|help	Print this help information." 
+    exit 1 
+} 
+
+while getopts 'h' opt; 
+do	
+    case ${opt} in
+        h|help)
+            usage
+            exit 1;;
+        ?)
+            usage
+	    exit 1
+    esac
+done
+
+versionfile="$bin/database/basic/reactome/Reactome$date";
+
+# tips
+echo -e "\e[1;33m
+This is a program for GO database update for AllEnricher.
+It will download the up to date gene2go, obo and goa files. 
+The new build database will be named in \"GO+current date\".
+
+\e[1;31m[Exsits DB version]:
+    $current_version
+[To update new DB version]:
+    Reactome$date
+[To update new DB path]:
+    $bin/database/basic/reactome/Reactome$date\n"
+
+
+#mkdir -p $versionfile
+cd $bin/database/basic/reactome/
+if [ "$current_version" != "Reactome$date" ]
+then
+    mv $current_version Reactome$date
+fi
+
+cd $versionfile
+echo -e "\e[1;33m|----Downloading gene_info from NCBI..."$(tput sgr0)
+wget -c ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene_info.gz
+
+echo -e "\e[1;33m|----Downloading All levels of the pathway hierarchy (NCBI2Reactome) ..."$(tput sgr0)
+wget -c https://reactome.org/download/current/NCBI2Reactome_All_Levels.txt
+gzip -f NCBI2Reactome_All_Levels.txt
+
+#echo -e "\e[1;33m|----Downloading Complete List of Pathways (Reactome-Pathways-species) ..."$(tput sgr0)
+#wget -c https://reactome.org/download/current/ReactomePathways.txt
+
+#echo -e "\e[1;33m|----Downloading Pathways hierarchy relationship (parent <- child) ..."$(tput sgr0)
+#wget -c https://reactome.org/download/current/ReactomePathwaysRelation.txt
+
+echo -e "\e[1;33m----|AllEnricher Reactome database update done!!!\n\nNew version path:\n$versionfile" $(tput sgr0)
+
+#if [ "$current_version" != GO$date ];then
+#    read -n1 -p "Delete the old version to save storage? [Y|N]" answer
+#    echo
+#    case $answer in
+#        y|Y) 
+#            rm -rf $bin/database/basic/reactome/$current_version && echo Done.;;
+#        N|n) 
+#            echo ok
+#            exit 1;;
+#    esac
+#fi

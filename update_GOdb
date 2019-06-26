@@ -1,0 +1,88 @@
+#!/bin/bash
+
+bin=`cd $(dirname $0);pwd`
+date="`date +%Y%m%d`"
+current_version=`ls $bin/database/basic/go/`
+
+usage() 
+{ 
+    echo -e "\e[1;33m
+This is a program for GO database update for AllEnricher.
+It will download the up to date gene2go, obo and goa files. 
+The new build database will be named in \"GO+current date\".
+
+\e[1;31m[Exsits DB version]:
+    $current_version
+[To update new DB version]:
+    GO$date
+[To update new DB path]:
+    $bin/database/basic/go/GO$date
+
+\e[1;33m[Usage]: `basename $0`
+    
+    -h|help	Print this help information." 
+    exit 1 
+} 
+
+while getopts 'h' opt; 
+do	
+    case ${opt} in
+        h|help)
+            usage
+            exit 1;;
+        ?)
+            usage
+	    exit 1
+    esac
+done
+
+versionfile="$bin/database/basic/go/GO$date";
+
+# tips
+echo -e "\e[1;33m
+This is a program for GO database update for AllEnricher.
+It will download the up to date gene2go, obo and goa files. 
+The new build database will be named in \"GO+current date\".
+
+\e[1;31m[Exsits DB version]:
+    $current_version
+[To update new DB version]:
+    GO$date
+[To update new DB path]:
+    $bin/database/basic/go/GO$date\n"
+
+
+#mkdir -p $versionfile
+cd $bin/database/basic/go/
+if [ "$current_version" != "GO$date" ]
+then
+    mv $current_version GO$date
+fi
+
+cd $versionfile
+echo -e "\e[1;33m|----Downloading gene2go from NCBI..."$(tput sgr0)
+wget -c ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2go.gz
+
+echo -e "\e[1;33m|----Downloading gene_info from NCBI..."$(tput sgr0)
+wget -c ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene_info.gz
+
+echo -e "\e[1;33m|----Downloading GO OBO file from geneontology..."$(tput sgr0)
+wget -c http://snapshot.geneontology.org/ontology/go-basic.obo
+
+echo -e "\e[1;33m|----Downloading gaf file from GOA..."$(tput sgr0)
+wget -c ftp://ftp.ebi.ac.uk/pub/databases/GO/goa/UNIPROT/goa_uniprot_all.gaf.gz
+
+echo -e "\e[1;33m----|AllEnricher GO database update done!!!\n\nNew version path:\n$versionfile" $(tput sgr0)
+
+
+#if [ "$current_version" != GO$date ];then
+#    read -n1 -p "Delete the old version to save storage? [Y|N]" answer
+#    echo
+#    case $answer in
+#        y|Y) 
+#            rm -rf $bin/database/basic/go/$current_version && echo Done.;;
+#        N|n) 
+#            echo ok
+#            exit 1;;
+#    esac
+#fi
