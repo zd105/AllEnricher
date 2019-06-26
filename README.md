@@ -364,10 +364,10 @@ ExpectedGeneNum = CategoryGeneNum / BackgroundGeneNum * AnnotatedGenelistNum
 The `*barplot.pdf` files and the `*bubbleplot.pdf` files are the visualization plot of the corresponding enrichment results.
 
 1) Bar plot (KEGG pathway enrichment)
-![image](https://github.com/zd105/AllEnricher/blob/master/example.glist.KEGG_barplot.top20.jpg)
+![image](https://github.com/zd105/AllEnricher/blob/master/example_barplot.jpg)
 
 2) Bubble plot (GO term enrichment)
-![image](https://github.com/zd105/AllEnricher/blob/master/test.glist.GO_bubbleplot.top20.jpg)
+![image](https://github.com/zd105/AllEnricher/blob/master/example_bubbleplot.jpg)
 
 
 # 5.Copyright
