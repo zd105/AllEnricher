@@ -257,7 +257,7 @@ Take the gene set in the `./example` file as example, just type:
 Note to select appropriate kind of analyses from GO, KEGG, Reactome, DO and DisGeNET according to your interests and under the  support of AllEnricher database.
 
 The user guide is summarized as follows:
-![image](https://github.com/zd105/AllEnricher/blob/master/AllEnricher_Usage.jpg)
+![image](https://github.com/zd105/AllEnricher/blob/master/AllEnricher_workflow.jpg)
 
 # 4.Output files
 
