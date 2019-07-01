@@ -389,7 +389,7 @@ The `*barplot.pdf` files and the `*bubbleplot.pdf` files are the visualization p
 
 # 5.Copyright
 
-Copyright (c) 2019-2020, NEO Institute, All Rights Reserved.
+Copyright (c) 2019, NEO Institute, All Rights Reserved.
 
 This software is OSI Certified Open Source Software.
 OSI Certified is a certification mark of the Open Source Initiative.
