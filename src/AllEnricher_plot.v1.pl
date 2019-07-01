@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Getopt::Long;
 use FindBin qw($Bin $Script);
-use File::Basename qw(basename dirname);
-use PerlIO::gzip;
+#use File::Basename qw(basename dirname);
+#use PerlIO::gzip;
 my $usage=<<"USAGE";
 
 Name:    A graphical display for AllEnricher results

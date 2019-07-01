@@ -2,9 +2,6 @@
 use strict;
 use warnings;
 use Getopt::Long;
-use FindBin qw($Bin $Script);
-use File::Basename qw(basename dirname);
-use Cwd;
 use PerlIO::gzip;
 
 my $usage=<<"USAGE";

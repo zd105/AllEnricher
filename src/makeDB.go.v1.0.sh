@@ -74,7 +74,7 @@ perl $bin/gene2GO_extract.pl -a $dbpath/gene2go.gz -b $dbpath/gene_info.gz -t $t
 if [ "$succesed" != "yes" ];then
 	echo -e "\n\e[1;37m|---Trying to extract from GOA gaf.gz..."$(tput sgr0)
 	echo `date`
-	perl $bin/goa2go.pl -gaf $dbpath/goa_uniprot_all.gaf.gz -s $organism -t $taxid -o $outdir && echo "---|Successed!"
+	perl $bin/goa2go.pl -gaf $dbpath/goa_uniprot_filtered.gaf.gz -s $organism -t $taxid -o $outdir && echo "---|Successed!"
 fi
 
 # generate GO2term table

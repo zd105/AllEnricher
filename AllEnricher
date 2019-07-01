@@ -2,7 +2,6 @@
 
 use strict;
 use Getopt::Long;
-use Cwd 'abs_path';
 use FindBin qw($Bin $Script);
 my $usage=<<"USAGE";
   
