@@ -113,13 +113,23 @@ Create a directory where you plan the package to reside. Copy the downloaded arc
 
 ```shell
 tar zxvf AllEnricher-v1.0.tar.gz
-cd AllEnricher-v1.0
-sh install.sh -R /usr/bin/Rscript
+
 ```
 
  
 This should unpack a few files in the current directory and will create a bin subdirectory with several files. 
-Once unpacked successfully, the installation script will detect and install the dependent R packages and perl modules.
+Once unpacked successfully, the installation script will detect and install the dependent R packages and perl modules to the default perl and R of your system:
+
+```
+cd AllEnricher-v1.0
+sh install.sh
+```
+
+or, specify the perl and Rscript program you want to use:
+
+```
+sh install.sh -P /usr/bin/perl -R /usr/bin/Rscript
+```
 
 There are four main scripts in the main directory:
 
