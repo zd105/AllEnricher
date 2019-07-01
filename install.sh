@@ -8,16 +8,19 @@ usage()
 This is a installation shell script of AllEnricher.
 
 \e[1;33m[Usage]: `basename $0`
-    -R|Rscript	Rscript absolute path;
+    -R|Rscript	Rscript program to use.
+    -P|Perl	perl program to use.
     -h|help	Print this help information." 
     exit 1 
 } 
 
-while getopts 'R:h' opt; 
+while getopts 'R:P:h' opt; 
 do	
     case ${opt} in
         R|Rscript)
             Rscript="${OPTARG}";;
+        P|Perl)
+            perl_abs="${OPTARG}";;
         h|help)
             usage
             exit 1;;
@@ -29,31 +32,36 @@ done
 
 if [ ! $Rscript ]
 then
-    echo "[error] Please specify the Rscript program to use."
-    exit 1
+    Rscript=`which Rscript`
+    echo "Installing to the default R: $Rscript"
 fi
 
+if [ ! $perl_abs ]
+then
+    perl_abs=`which perl`
+    echo "Installing to the default perl: $perl_abs"
+fi
 
 echo -e "|--- Installing dependent Perl modules...\n"
 status=0
-perl -MPerlIO::gzip -e "print\"module PerlIO::gzip had installed\n\"" || status=1
+$perl_abs -MPerlIO::gzip -e "print\"module PerlIO::gzip had installed\n\"" || status=1
 if [ $status == 1 ];then
-    /usr/bin/cpan PerlIO::gzip
-    perl -MPerlIO::gzip -e "print\"module PerlIO::gzip had installed\n\"" || echo "Cannot install module PerlIO::gzip." && exit 1;
+    cpan PerlIO::gzip
+    $perl_abs -MPerlIO::gzip -e "print\"module PerlIO::gzip had installed\n\"" || echo "Cannot install module PerlIO::gzip." && exit 1;
 fi
 
 status=0
-perl -MFindBin -e "print\"module FindBin had installed\n\"" || status=1
+$perl_abs -MFindBin -e "print\"module FindBin had installed\n\"" || status=1
 if [ $status == 1 ];then
-    /usr/bin/cpan FindBin
-    perl -MFindBin -e "print\"module FindBin had installed\n\"" || echo "Cannot install module FindBin." && exit 1;
+    cpan FindBin
+    $perl_abs -MFindBin -e "print\"module FindBin had installed\n\"" || echo "Cannot install module FindBin." && exit 1;
 fi
 
 status=0
-perl -MGetopt::Long -e "print\"module Getopt::Long had installed\n\"" || status=1
+$perl_abs -MGetopt::Long -e "print\"module Getopt::Long had installed\n\"" || status=1
 if [ $status == 1 ];then
-    /usr/bin/cpan Getopt::Long
-    perl -MGetopt::Long -e "print\"module Getopt::Long had installed\n\"" || echo "Cannot install module Getopt::Long." && exit 1;
+    cpan Getopt::Long
+    $perl_abs -MGetopt::Long -e "print\"module Getopt::Long had installed\n\"" || echo "Cannot install module Getopt::Long." && exit 1;
 fi
 
 echo -e "\n|--- Installing dependent R packages...\n"
