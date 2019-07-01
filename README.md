@@ -114,7 +114,7 @@ Create a directory where you plan the package to reside. Copy the downloaded arc
 ```shell
 tar zxvf AllEnricher-v1.0.tar.gz
 cd AllEnricher-v1.0
-sh install.sh
+sh install.sh -R /usr/bin/Rscript
 ```
 
  
