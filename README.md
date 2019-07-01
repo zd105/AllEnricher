@@ -35,7 +35,7 @@ Besides, gene-function annotations based on various kind of library will be inte
 
 **B. Multiple species support**
 
-- Gene ontology analysis for * species
+- Gene ontology analysis for 15464 species
 
 - Disease analysis for *Homo sapiens*
 
