@@ -112,13 +112,14 @@ Create a directory where you plan the package to reside. Copy the downloaded arc
  
 
 ```shell
-tar zxvf AllEnricher-xxx.zip
+tar zxvf AllEnricher-v1.0.tar.gz
+cd AllEnricher-v1.0
+sh install.sh
 ```
 
  
-
 This should unpack a few files in the current directory and will create a bin subdirectory with several files. 
-Once unpacked successfully, you do NOT need to run any program to install.
+Once unpacked successfully, the installation script will detect and install the dependent R packages and perl modules.
 
 There are four main scripts in the main directory:
 
