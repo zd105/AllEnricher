@@ -88,7 +88,7 @@ No installation required. Once you finished library construction, only one comma
 Unix system and common Unix utilities like sort, uniq, gzip, cat, zcat etc.
  should be available.
 
-Perl version >= 5.
+Perl version >= 5.10.1
 
 with module installed:
 
