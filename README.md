@@ -1,6 +1,6 @@
 # AllEnricher 
 
-### An comprehensive gene set function enrichment tool for multiple species.
+### A comprehensive gene set function enrichment tool for multiple species.
 
 ------
 
