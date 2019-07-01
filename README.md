@@ -90,6 +90,11 @@ Unix system and common Unix utilities like sort, uniq, gzip, cat, zcat etc.
 
 Perl version >= 5.10.1
 
+with module installed:
+
+- *PerlIO::gzip*
+- *FindBin*
+
 R version >= 3.4.2
 
 with package installed: 
