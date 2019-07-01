@@ -88,14 +88,14 @@ No installation required. Once you finished library construction, only one comma
 Unix system and common Unix utilities like sort, uniq, gzip, cat, zcat etc.
  should be available.
 
-Perl version >= 5.10.1
+Perl version >= 5.
 
 with module installed:
 
 - *PerlIO::gzip*
 - *FindBin*
 
-R version >= 3.4.2
+R version >= 3.2
 
 with package installed: 
 
