@@ -81,7 +81,7 @@ The local library was built based on public resources that are frequently update
 
 **D. Easy to use and embeddable**
 
-No installation required. Once you finished library construction, only one command is required for gene set enrichment analysis and visualization. Since most bioinformatic pipelines of function genomic studies are deployed on the Unix platform, it is convenient for users to integrating AllEnricher into their pipelines to facilitating analysis.
+Simple installation requirements. Once you finished library construction, only one command is required for gene set enrichment analysis and visualization. Since most bioinformatic pipelines of function genomic studies are deployed on the Unix platform, it is convenient for users to integrating AllEnricher into their pipelines to facilitating analysis.
 
 # 1.System Requirements
 
