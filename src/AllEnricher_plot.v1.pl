@@ -52,12 +52,12 @@ while(<IN>){
     chomp;
     my @a=split;
     if($type eq "GO"){
-        if($a[0]=~/GO\:\d+/ && $a[2]>$observed && $a[4]>$fold && $a[6]<$q){
+        if($a[0]=~/GO\:\d+/ && $a[2]>=$observed && $a[4]>$fold && $a[6]<$q){
             print OUT $_;
             print OUT "\n";
         } 
     }else{
-        if($a[0]=~/\w+\d+/ && $a[2]>$observed && $a[4]>$fold && $a[6]<$q){
+        if($a[0]=~/\w+\d+/ && $a[2]>=$observed && $a[4]>$fold && $a[6]<$q){
             print OUT $_;
             print OUT "\n";
         }
