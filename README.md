@@ -266,7 +266,7 @@ Once all the library for a specified species had build, the users could conduct 
 Take the gene set in the `./example` file as example, just type:
 
 ```shell
-./AllEnricher -l example.glist -s hsa -v v20190612 -o ./allenricher/ -r /usr/bin/Rscript -m GO+KEGG+Reactome+DO+DisGeNET
+./AllEnricher -l example.glist -s hsa -v v20190612 -o ./allenricher/ -r /usr/bin/Rscript -i GO+KEGG+Reactome+DO+DisGeNET
 
 ```
 
