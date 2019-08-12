@@ -54,7 +54,7 @@ GetOptions("l=s"     =>  \$infile,
            "q=s"     => \$mht,
 	   "c=f"     => \$q_val,
 	   "v=s"     => \$dbversion,
-           "r=i"     =>\$Rscript,
+           "r=s"     =>\$Rscript,
 	   "n=i"     =>\$gnum,
            "f=f"     =>\$RichFactor,
            "h=s"     => \$help
