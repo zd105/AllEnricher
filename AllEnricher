@@ -21,7 +21,7 @@ Usage:   perl $0 -l gene_list -s hsa -r \$WHERE_YOU_R/Rscript -o outfile
                          "https://www.kegg.jp/kegg/catalog/org_list.html"
             -i <str>  Analysis items:
                          KEGG+GO(default)
-                      or: you can specify yourself. optins: KEGG,GO,DO,DisGeNET and Reactome.
+                      or: you can specify yourself. options: KEGG,GO,DO,DisGeNET and Reactome.
             -m <str>  Specify the enrichment method:
                          "fisher" for Fisher's exact test(default);
                          "phyper" for Hypergeometric test.
