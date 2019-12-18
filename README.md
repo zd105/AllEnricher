@@ -177,7 +177,7 @@ on 6-12-2019 by the author.
 To update GO library for AllEnricher, just type:
 
 ```shell
-./make_speciesDB
+./make_GOdb
 ```
 
 This will download the up to date `gene2go`and `gene_info`file from NCBI, `obo` file from Gene Ontology and `gaf` file from Gene Ontology Annotation. The file size is about:
