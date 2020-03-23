@@ -12,6 +12,7 @@
   4.Output files
   5.Copyright
   6.Contact information
+  7.Citation
 ```
 
 # 0.Introduction
@@ -403,3 +404,7 @@ This bioinformatics tool is available at github page at: https://github.com/zd10
 
 For problems and questions related to this program please contact Du Zhang
 at zhangducsu@163.com . 
+
+# 7.Citation
+
+Zhang D, Hu Q, Liu X, et al. AllEnricher: a comprehensive gene set function enrichment tool for both model and non-model species[J]. *BMC Bioinformatics*, 2020, 21:106
